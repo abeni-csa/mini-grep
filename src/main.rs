@@ -3,7 +3,7 @@ use std::fs;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let config = Config::new(&args);
+    let config = Config::build(&args);
 
     println!("searcging for {}", config.query);
     println!("In file {}", config.file_path);
@@ -18,9 +18,12 @@ struct Config {
 }
 
 impl Config {
-    fn new(args: &[String]) -> Config {
+    fn build(args: &[String]) -> Result<Config, &'static str> {
+        if args.len() < 3 {
+            return Err("no enough argumements passed \ntry minigrep string path ");
+        }
         let query = args[1].clone();
         let file_path = args[2].clone();
-        Config { query, file_path }
+        Ok(Config { query, file_path })
     }
 }
