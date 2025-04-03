@@ -9,11 +9,15 @@ pub struct Config {
 
 impl Config {
     pub fn build(mut args: impl Iterator<Item = String>) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            return Err("\nno enough argumements passed try minigrep string path ");
-        }
-        let query = args[1].clone();
-        let file_path = args[2].clone();
+        args.next();
+        let query = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Did n't get a query string "),
+        };
+        let file_path = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Did n't get a query string "),
+        };
         let ignore_case = env::var("IGNORE_CASE").is_ok();
         Ok(Config {
             query,
