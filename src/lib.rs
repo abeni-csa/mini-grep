@@ -26,7 +26,11 @@ impl Config {
         })
     }
 }
-
+/// run a given seache cases like itratng and listing
+/// # Example
+/// ```
+/// cargo run <STRING> <FILE>
+/// ```
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let contests = fs::read_to_string(config.file_path)?;
     let results = if config.ignore_case {
