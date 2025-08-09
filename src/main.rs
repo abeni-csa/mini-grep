@@ -1,3 +1,4 @@
+/// run from conf
 use minigrep::Config;
 use std::{env, process};
 
